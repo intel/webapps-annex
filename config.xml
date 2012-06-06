@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" version="1.0" viewmodes="fullscreen" id="http://tizen.org/annex" defaultlocale="en">
-	<icon src="annex-icon.png"/>  
-	<content src="index.html"/>  
-	<name>Annex</name>  
-	<author/>
-	<license/>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" version="2.0 Beta" viewmodes="fullscreen" id="http://yourdomain/annex">
+        <icon src="annex-icon.png"/>
+        <content src="index.html"/>
+        <name>Annex</name>
 </widget>
+
