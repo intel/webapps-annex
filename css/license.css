@@ -68,16 +68,6 @@
     background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#444));
 }
 
-#licensebtnu {
-    left: 630px;
-    width: 50px;
-}
-
-#licensebtnd {
-    left: 344px;
-    width: 50px;
-}
-
 #licensebtnq {
     left: 412px;
     width: 200px;

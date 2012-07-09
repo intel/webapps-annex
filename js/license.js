@@ -10,55 +10,50 @@
 function license_init(id, hpageid)
 {
     var lbtn = document.getElementById(id+"btnl");
-    var ubtn = document.getElementById(id+"btnu");
-    var dbtn = document.getElementById(id+"btnd");
     var qbtn = document.getElementById(id+"btnq");
     var lpage = document.getElementById(id+"page");
-    var ltext = document.getElementById(id+"text").contentWindow;
     var hpage = document.getElementById(hpageid);
     var frame = window.frames[id+"text"];
-    var scroll_y = 0;
-    var click_y = 0;
-    var isdrag = false;
+    var dY = 1;
+    var t0 = 0;
+    var timer;
 
-    ltext.ontouchstart = function(e) {};
-    ltext.ontouchend = function(e) {};
-    ltext.ontouchmove = function(e) {};
-
-    ltext.onmousedown = function(e) {
-        isdrag = true;
-        click_y = e.y;
-        scroll_y = frame.scrollY;
-    };
-
-    ltext.onmouseup = function(e) {
-        isdrag = false;
-    };
-
-    ltext.onmousemove = function(e) {
-        if(isdrag)
-        {
-            frame.scrollTo(0, scroll_y + click_y - e.y);
-        }
-    };
-
-    lbtn.addEventListener('click', function() {
-        hpage.style.visibility="hidden";
+    lbtn.onclick = function() {
+        var delay = 0;
+        /* display the license page, hide its parent */
+        hpage.style.display="none";
         lpage.style.display="block";
-    });
 
-    ubtn.onmousedown = function() {
-        var val = frame.scrollY - 400
-        frame.scrollTo(0, (val < 0)?0:val);
+        /* start the autoscroll interval */
+        timer = setInterval(function() {
+            /* get the actual interval, in case performance slows us down */
+            var t1 = (new Date()).getTime();
+            var dT = (t0 == 0)?20:(t1-t0);
+            t0 = t1;
+            var old = frame.scrollY;
+            frame.scrollTo(0, frame.scrollY + ((dT/20)*dY));
+
+            /* if the frame has hit the limit, delay and swing */
+            /* the other way */
+            if((frame.scrollY == old)&&(delay++ > ((100*dT)/20)))
+            {
+                delay = 0;
+                if(frame.scrollY > 0)
+                {
+                    dY = -20;
+                }
+                else
+                {
+                    dY = 1;
+                }
+            }
+        }, 20);
     };
 
-    dbtn.onmousedown = function() {
-        var val = frame.scrollY + 400
-        frame.scrollTo(0, val);
-    };
-
-    qbtn.addEventListener('click', function() {
-        hpage.style.visibility="visible";
+    qbtn.onclick = function() {
+        hpage.style.display="block";
         lpage.style.display="none";
-    });
+        clearInterval(timer);
+    };
 }
+
