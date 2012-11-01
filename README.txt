@@ -1,6 +1,6 @@
 Annex is a Reversi/Othello game implemented with HTML5/Javascript technology.
 
-Author: Xinchao He <xinchao.he@intel.com>
+Author/Owner: Xinchao He <xinchao.he@intel.com>
 
 This application is written using HTML5/css3/jquery javascript library and is
 distributed under Apache2.0 license. 
