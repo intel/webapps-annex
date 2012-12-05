@@ -4,4 +4,5 @@
     <content src="index.html"/>
 <name>annex</name>
 <tizen:application id="33CFo0eFJe" required_version="1.0"/>
+<tizen:setting screen-orientation="landscape" contextmenu="enable"/>
 </widget>

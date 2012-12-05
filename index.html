@@ -11,7 +11,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
-    <meta name="viewport" content="width=device-width target-densitydpi=device-dpi initial-scale=1 maximum-scale=1 user-scalable=0" />
+    <meta id="viewport_meta" name="viewport" content="" />
+    <script type="text/javascript">
+        var viewport_meta = document.getElementById('viewport_meta');
+        var w = (screen.orientation.indexOf("portrait") == 0)?screen.availWidth:screen.availHeight;
+        viewport_meta.setAttribute('content','width='+w+', user-scalable=no');
+    </script>
     <meta name="author" content="Xinchao He">
     <link rel="stylesheet" href="css/annex.css"/> 
     <link rel="stylesheet" type="text/css" href="css/license.css"></link>
