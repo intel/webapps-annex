@@ -477,6 +477,10 @@ body {
 @media (orientation: landscape) {
   body { top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%) scale(0.78125, 0.8); } 
 }
+/* 600 x 989 */
+@media (min-width: 989px) and (min-height: 600px) and (orientation: landscape) {
+  body { top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%) scale(0.9658, 1.0); }
+}
 /* 1024 x 600 */
 @media (min-width: 1024px) and (min-height: 600px) and (orientation: landscape) {
   body { top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); }
