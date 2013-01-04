@@ -33,13 +33,17 @@
 }
 
 #licensetext {
-    width: 99.8%;
-    height: 89%;
+    width: 99%;
+    height: 88%;
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FFFFFF), color-stop(1, #b06228));
     -webkit-border-radius: 12px;
     border-radius: 12px;
     box-shadow: inset 1px 1px 2px 1px black;
+    padding-left: 10px;
+    padding-bottom: 10px;
     margin-bottom: 2px;
+    overflow: hidden;
+    cursor: move;
 }
 
 .licensebtn {
@@ -57,6 +61,12 @@
     line-height: 48px;
     cursor: pointer;
     box-shadow: 2px 2px 14px #000;
+}
+
+#licensescroll {
+    position: relative;
+    font: 25px/100% Arial, Helvetica, sans-serif;
+    text-align: center;
 }
 
 .licensebtn:hover {

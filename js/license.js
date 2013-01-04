@@ -13,16 +13,48 @@ function license_init(id, hpageid)
     var qbtn = document.getElementById(id+"btnq");
     var lpage = document.getElementById(id+"page");
     var hpage = document.getElementById(hpageid);
-    var frame = window.frames[id+"text"];
-    var dY = 1;
-    var t0 = 0;
+    var ltext = document.getElementById(id+"text");
+    var lscroll = document.getElementById(id+"scroll");
     var timer;
 
+    var request = new XMLHttpRequest();
+    request.open("GET", "README.txt", false);
+    request.onload = function(e) {
+        var text = this.responseText;
+        text = text.replace("<","&lt;");
+        text = text.replace(">","&gt;");
+        var lines = text.split("\n");
+        lines[0] = "<br><br>"+lines[0];
+        for(var i in lines)
+        {
+            if(lines[i].match(/--------------------/))
+            {
+                lines[i] = "";
+            }
+            else
+            {
+                lines[i] += "<br>";
+            }
+        }
+        lscroll.innerHTML = lines.join("\n");
+    }
+    request.send();
+
     lbtn.onclick = function() {
-        var delay = 0;
+        /* initialize scroll rate */
+        var dY = 2;
+        var t0 = 0;
+        var delay = 1000;
+
+        /* set the scroller to the top position */
+        lscroll.style.top = "0px";
+
         /* display the license page, hide its parent */
         hpage.style.display="none";
         lpage.style.display="block";
+
+        /* calculate the scroll length when the window is shown */
+        var maxY = lscroll.clientHeight - ltext.clientHeight;
 
         /* start the autoscroll interval */
         timer = setInterval(function() {
@@ -30,24 +62,32 @@ function license_init(id, hpageid)
             var t1 = (new Date()).getTime();
             var dT = (t0 == 0)?20:(t1-t0);
             t0 = t1;
-            var old = frame.scrollY;
-            frame.scrollTo(0, frame.scrollY + ((dT/20)*dY));
 
-            /* if the frame has hit the limit, delay and swing */
+            /* delay specific number of milliseconds */
+            delay -= dT;
+            if(delay > 0)
+                return;
+
+            /* calculate the new top position using dY and dT */
+            var newY = Math.abs(parseInt(lscroll.style.top)) + ((dT/40)*dY);
+            if(newY > 0)
+                lscroll.style.top = (-1 * newY) + "px";
+            else
+                lscroll.style.top = "0px";
+
+            /* if the lscroll has hit the limit, delay and swing */
             /* the other way */
-            if((frame.scrollY == old)&&(delay++ > ((100*dT)/20)))
+            if(newY >= maxY)
             {
-                delay = 0;
-                if(frame.scrollY > 0)
-                {
-                    dY = -20;
-                }
-                else
-                {
-                    dY = 1;
-                }
+                delay = 5000;
+                dY = -20;
             }
-        }, 20);
+            else if(newY <= 0)
+            {
+                delay = 5000;
+                dY = 2;
+            }
+        }, 40);
     };
 
     qbtn.onclick = function() {
