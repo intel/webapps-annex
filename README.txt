@@ -43,11 +43,3 @@ License: http://creativecommons.org/licenses/by/3.0/
 SettingsClick.ogg
 Origin: http://www.freesound.org/people/junggle/sounds/29301/
 License: http://creativecommons.org/licenses/by/3.0/
-
-LIBRARIES
------------------------------------------------------------------------------
-
-jQuery JavaScript Library v1.6.2
-Copyright 2011, John Resig
-Dual licensed under the MIT or GPL Version 2 licenses.
-http://jquery.org/license

@@ -3,6 +3,7 @@
         "message": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
         "description": "除去空格之外的所有字符集合"
     },
+    "locale": {"message": "zh_CN"},
     "name": {"message": "Annex黑白棋"},
     "description": {"message": "一个黑白棋游戏"},
 	"license": {"message": "授权"},
