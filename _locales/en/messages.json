@@ -3,6 +3,7 @@
         "message": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
         "description": "Single concatination of all alphabet characters, no spaces"
     },
+    "locale": {"message": "en"},
     "name": {"message": "Annex"},
     "description": {"message": "A Reversi/Othello game"},
 	"license": {"message": "License"},

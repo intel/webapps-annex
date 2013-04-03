@@ -1,0 +1,5 @@
+@font-face{
+	font-family: default_font;
+	src: url('../fonts/JimNightshade-Regular.ttf'),
+	     url('../fonts/wqy-microhei.ttc');
+}
