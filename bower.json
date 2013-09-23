@@ -1,0 +1,12 @@
+{
+  "name": "webapps-hangonman",
+  "version": "1.1.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "Comfortaa": "http://www.fontsquirrel.com/fonts/download/Comfortaa"
+  }
+}
