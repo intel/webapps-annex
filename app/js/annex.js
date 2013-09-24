@@ -122,14 +122,14 @@ var World = (function(){
         directs: [[1,0],[1,1],[1,-1],[0,1],[0,-1],[-1,0],[-1,1],[-1,-1]],
         heap: {'nextLevel':{}},
         soundSource: {
-            'snd_hint':{'src':'sounds/Hint.ogg'},
-            'snd_navclick':{'src':'sounds/NavClick.ogg'},
-            'snd_navmove':{ 'src':'sounds/NavMove.ogg'},
-            'snd_settingsclick':{ 'src':'sounds/SettingsClick.ogg'},
-            'snd_theme':{ 'src':'sounds/Theme.ogg'},
-            'snd_tileflip':{ 'src':'sounds/TileFlip.ogg'},
-            'snd_tileplace':{ 'src':'sounds/TilePlace.ogg'},
-            'snd_victoryhorns':{ 'src':'sounds/VictoryHorns.ogg'},
+            'snd_hint':{'src':'audio/Hint.ogg'},
+            'snd_navclick':{'src':'audio/NavClick.ogg'},
+            'snd_navmove':{ 'src':'audio/NavMove.ogg'},
+            'snd_settingsclick':{ 'src':'audio/SettingsClick.ogg'},
+            'snd_theme':{ 'src':'audio/Theme.ogg'},
+            'snd_tileflip':{ 'src':'audio/TileFlip.ogg'},
+            'snd_tileplace':{ 'src':'audio/TilePlace.ogg'},
+            'snd_victoryhorns':{ 'src':'audio/VictoryHorns.ogg'},
         },
         showWorld: function() {
             if (!this.hasInit) {
