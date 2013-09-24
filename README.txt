@@ -3,7 +3,7 @@ Annex is a Reversi/Othello game implemented with HTML5/Javascript technology.
 Author: Xinchao He <xinchao.he@intel.com>
 
 This application is written using HTML5/css3/jquery javascript library and is
-distributed under Apache2.0 license. 
+distributed under Apache2.0 license.
 
 IMAGES
 -----------------------------------------------------------------------------
@@ -21,14 +21,14 @@ SIL Open Font License (OFL) License, version 1.1
 
 Wen Quan Yi Micro Hei
 http://wenq.org/index.cgi?MicroHei
-License: Licensed under Apache2.0 or GPLv3 with font embedding exceptions 
+License: Licensed under Apache2.0 or GPLv3 with font embedding exceptions
          http://wenq.org/index.cgi?MicroHei_BigBang_README
 
 SOUNDS
 -----------------------------------------------------------------------------
 
 Hint.ogg, Theme.ogg, TileFlip.ogg, TilePlace.ogg, VictoryHorns.ogg
-These files were created by Intel Corp. and are licensed under 
+These files were created by Intel Corp. and are licensed under
 the Creative Commons Attribution 3.0 license
 http://creativecommons.org/licenses/by/3.0/us/
 

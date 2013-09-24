@@ -3,7 +3,7 @@
   "description": "__MSG_description__",
   "default_locale": "en",
   "version": "1.0.2",
-  "icons": { "16":"annex-icon-16.png", "48": "annex-icon-48.png", "128": "annex-icon.png" },
+  "icons": { "16":"icon_16.png", "48": "icon_48.png", "128": "icon_128.png" },
   "app": {
     "launch": {
         "local_path": "index.html",
@@ -12,6 +12,6 @@
 	"height":600
     }
   },
-  "homepage_url" : "https://01.org/webapps/content/annex", 
-  "update_url" : "https://01.org/webapps/content/annex/update.xml" 
+  "homepage_url" : "https://01.org/webapps/content/annex",
+  "update_url" : "https://01.org/webapps/content/annex/update.xml"
 }
