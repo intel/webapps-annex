@@ -455,21 +455,18 @@
 }
 
 body {
-        background-positon: left top;
-        display: -webkit-box;
-        -webkit-box-align: center;
-        -webkit-box-pack: center;
-        -webkit-box-orient: vertical;
+    background-positon: left top;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    -webkit-box-orient: vertical;
 	position:absolute;
-	top:50%;
-	left:50%;
-        cursor: default;
+    cursor: default;
 	width:1024px;
 	height:600px;
 	padding:0px;
 	margin:0px;
 	box-shadow: 5px 5px 20px black;
-	-webkit-transform: translate(-50%, -50%);
 }
 
 #licensebtnl {
@@ -547,45 +544,6 @@ body {
     left: 412px;
     width: 200px;
 }
-
-/* 800 x 480 */
-@media (orientation: landscape) {
-  body { top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%) scale(0.78125, 0.8); } 
-}
-/* 600 x 989 */
-@media (min-width: 989px) and (min-height: 600px) and (orientation: landscape) {
-  body { top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%) scale(0.9658, 1.0); }
-}
-/* 1024 x 600 */
-@media (min-width: 1024px) and (min-height: 600px) and (orientation: landscape) {
-  body { top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); }
-}
-/* 1280 x 720 */
-@media (min-width: 1280px) and (min-height: 720px) and (orientation: landscape) {
-  body { top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%) scale(1.25, 1.199); }
-}
-
-/* 480 x 800 */
-@media (orientation: portrait) {
-  body { top: 0%; left: 0%; -webkit-transform: translate(-50%, -50%) rotate(90deg) scale(0.8, 0.78125); }
-}
-/* 600 x 989 */
-@media (min-width: 600px) and (min-height: 989px) and (orientation: portrait) {
-  body { top: 0%; left: 0%; -webkit-transform: translate(-50%, -50%) rotate(90deg) scale(0.9658, 1.0) translate(50%, -50%); }
-}
-/* 600 x 1024 */
-@media (min-width: 600px) and (min-height: 1024px) and (orientation: portrait) {
-  body { top: 0%; left: 0%; -webkit-transform: translate(-50%, -50%) rotate(90deg) translate(50%, -50%); }
-}
-/* 720 x 1230 */
-@media (min-width: 720px) and (min-height: 1230px) and (orientation: portrait) {
-  body { top: 0%; left: 0%; -webkit-transform: translate(-50%, -50%) rotate(90deg) scale(1.2, 1.199) translate(50%, -50%); }
-}
-/* 720 x 1280 */
-@media (min-width: 720px) and (min-height: 1280px) and (orientation: portrait) {
-  body { top: 0%; left: 0%; -webkit-transform: translate(-50%, -50%) rotate(90deg) scale(1.25, 1.199) translate(50%, -50%); }
-}
-
 
 a{
 	outline:none;

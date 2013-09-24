@@ -32,7 +32,8 @@ module.exports = function (grunt) {
     uglify: {
       dist: {
         files: {
-          'build/app/js/annex.js': ['app/js/annex.js']
+          'build/app/js/annex.js': ['app/js/annex.js'],
+          'build/app/js/scaleBody.js': ['app/js/scaleBody.js']
         }
       }
     },

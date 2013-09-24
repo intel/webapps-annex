@@ -1,14 +1,14 @@
 {
-  "name": "HangOnMan",
+  "name": "Annex",
   "version": "0.0.1",
-  "description": "Classic Hangman Game",
+  "description": "Reversi/Othello",
   "main": "app/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "https",
-    "url": "https://github.com/01org/webapps-hangonman"
+    "url": "https://github.com/01org/webapps-annex"
   },
   "author": "Todd Brandt <todd.e.brandt@intel.com>",
   "license": "APL 2.0",

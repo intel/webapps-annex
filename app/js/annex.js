@@ -884,5 +884,7 @@ window.onload = function(){
         World.showLicense("license", "open");
     });
 
+    scaleBody(document.getElementsByTagName("body")[0], 720);
+
     World.playSound('snd_theme');
 }
