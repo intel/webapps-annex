@@ -15,13 +15,13 @@ function queryObj(obj) {
         this.q.innerHTML = val;
         return this;
     }
-    
+
     this.hasClass = function (c_name) {
         if (this.isNull)
             return false;
         return this.q.classList.contains(c_name);
     }
-    
+
     this.addClass = function (c_name) {
         if (this.isNull)
             return this;
@@ -35,7 +35,7 @@ function queryObj(obj) {
             return this;
         var list = this.q.classList;
         list.remove (c_name);
-        return this;        
+        return this;
     }
 
     this.css = function (item, style) {
@@ -114,7 +114,6 @@ var World = (function(){
         level: 3,
         hasHelp: false,
         hasInit: false,
-        hasLicense: false,
         playerNum: 1,
         currentColor: 'black',
         step: 4,
@@ -233,7 +232,7 @@ var World = (function(){
                 $('.play2_lable').html(getMessage('computer', 'comp.'));
             }
             this.isInit = true;
-            
+
             document.getElementById('open').style.display="none";
             document.getElementById('view').style.display="block";
 
@@ -749,37 +748,9 @@ var World = (function(){
             var lpage = document.getElementById(id+"page");
             var hpage = document.getElementById(hpageid);
             var ltext;
-            var lscroll;
+            var lscroll = document.getElementById(id+"scroll");
             var timer;
-            
-            if (!this.hasLicense) {
-                $('#licensepage').html('<div id="licensetext"><div id="licensescroll"></div></div> <div id="licensebtnq" class="licensebtn">Back</div>');
-                lscroll = document.getElementById(id+"scroll");
-                var request = new XMLHttpRequest();
-                request.open("GET", "README.txt", false);
-                request.onload = function(e) {
-                    var text = this.responseText;
-                    text = text.replace("<","&lt;");
-                    text = text.replace(">","&gt;");
-                    var lines = text.split("\n");
-                    lines[0] = "<br><br>"+lines[0];
-                    for(var i in lines)
-                    {
-                        if(lines[i].match(/--------------------/))
-                        {
-                            lines[i] = "";
-                        }
-                        else
-                        {
-                            lines[i] += "<br>";
-                        }
-                    }
-                    lscroll.innerHTML = lines.join("\n");
-                }
-                request.send();
-                this.hasLicense = true;
-            }
-            
+
             var btnq = document.getElementById(id+"btnq");
             lscroll = document.getElementById(id+"scroll");
             ltext = document.getElementById(id+"text");
@@ -831,12 +802,12 @@ var World = (function(){
                 }
             }, 40);
 
-        btnq.onclick = function() {
-            hpage.style.display="block";
-            lpage.style.display="none";
-            clearInterval(timer);
-        }         
-      },
+            btnq.onclick = function() {
+                hpage.style.display="block";
+                lpage.style.display="none";
+                clearInterval(timer);
+            }
+        },
     };
     return w;
 })();
