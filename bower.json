@@ -7,5 +7,7 @@
     "components"
   ],
   "dependencies": {
+    "jim-nightshade-font": "http://www.google.com/fonts/download?kit=o71FKG8hUoLSmSRL5ieL21zf8k2HILjNUQ1LWg-fIRs",
+    "wqy-microhei": "http://surfnet.dl.sourceforge.net/project/wqy/wqy-microhei/0.2.0-beta/wqy-microhei-0.2.0-beta.tar.gz"
   }
 }

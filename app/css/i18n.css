@@ -1,5 +1,5 @@
 @font-face{
 	font-family: default_font;
-	src: url('../fonts/JimNightshade-Regular.ttf'),
-	     url('../fonts/wqy-microhei.ttc');
+	src: url(../lib/jim-nightshade-font/JimNightshade-Regular.ttf),
+	     url(../lib/wqy-microhei/wqy-microhei.ttc);
 }

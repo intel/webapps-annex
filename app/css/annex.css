@@ -442,7 +442,7 @@
 
 @font-face{
 	font-family: default_font;
-	src: url('../fonts/JimNightshade-Regular.ttf');
+	src: url(../lib/jim-nightshade-font/JimNightshade-Regular.ttf);
 }
 
 .world {
