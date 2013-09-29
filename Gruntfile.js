@@ -151,7 +151,7 @@ module.exports = function (grunt) {
       install: {
         action: 'install',
         remoteFiles: {
-          pattern: '/home/developer/annex*.wgt',
+          pattern: '/home/developer/Annex*.wgt',
           filter: 'latest'
         }
       },
