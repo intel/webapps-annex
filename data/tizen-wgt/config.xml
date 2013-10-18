@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://github.com/01org/webapps-annex" version="1.1.0" viewmodes="fullscreen">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="https://github.com/01org/webapps-annex" version="<%= packageInfo.version %>" viewmodes="fullscreen">
     <icon src="icon_128.png"/>
     <content src="index.html"/>
-    <name>annex</name>
+    <name><%= packageInfo.name %></name>
     <tizen:application id="33CFo0eFJe.annex" package="33CFo0eFJe" required_version="2.1"/>
     <tizen:setting screen-orientation="landscape" contextmenu="enable"/>
 </widget>
