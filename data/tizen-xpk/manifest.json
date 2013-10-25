@@ -18,6 +18,6 @@
   "name": "<%= packageInfo.name %>",
   "permissions": [  ],
   "version": "<%= packageInfo.version %>",
-  "homepage_url" : "https://01.org/webapps/content/hang-man",
-  "update_url" : "https://01.org/webapps/content/hang-man/update.xml"
+  "homepage_url" : "https://01.org/webapps/content/annex",
+  "update_url" : "https://01.org/webapps/content/annex/update.xml"
 }

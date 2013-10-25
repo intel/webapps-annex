@@ -51,11 +51,13 @@ module.exports = function (grunt) {
         files: [
           { expand: true, cwd: '.', src: ['app/lib/**'], dest: 'build/' },
           { expand: true, cwd: '.', src: ['app/audio/**'], dest: 'build/' },
+          { expand: true, cwd: '.', src: ['app/data/**'], dest: 'build/' },
+          { expand: true, cwd: '.', src: ['app/README.txt'], dest: 'build/' },
           { expand: true, cwd: '.', src: ['LICENSE'], dest: 'build/app/' },
-          { expand: true, cwd: '.', src: ['README.txt'], dest: 'build/app/' },
           { expand: true, cwd: '.', src: ['app/_locales/**'], dest: 'build/' }
         ]
       },
+
       wgt: {
         files: [
           { expand: true, cwd: 'build/app/', src: ['**'], dest: 'build/wgt/' },
@@ -87,6 +89,29 @@ module.exports = function (grunt) {
       {
         files: [
           { expand: true, cwd: 'data/chrome-crx/', src: ['manifest.json'], dest: 'build/crx/' }
+        ],
+
+        options:
+        {
+          processContent: function(content, srcpath)
+          {
+            return grunt.template.process(content);
+          }
+        }
+
+      },
+
+      xpk: {
+        files: [
+          { expand: true, cwd: 'build/app/', src: ['**'], dest: 'build/xpk/' },
+          { expand: true, cwd: '.', src: ['icon*.png'], dest: 'build/xpk/' }
+        ]
+      },
+
+      xpk_manifest:
+      {
+        files: [
+          { expand: true, cwd: 'data/tizen-xpk/', src: ['manifest.json'], dest: 'build/xpk/' }
         ],
 
         options:
@@ -156,7 +181,7 @@ module.exports = function (grunt) {
         files: 'build/sdk/**',
         stripPrefix: 'build/sdk/',
         outDir: 'build',
-        suffix: '.wgt',
+        suffix: '.wgt'
       }
     },
 
@@ -217,7 +242,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('crx', ['dist', 'copy:crx', 'copy:crx_manifest']);
   grunt.registerTask('wgt', ['dist', 'copy:wgt', 'copy:wgt_config', 'package:wgt']);
+  grunt.registerTask('xpk', ['dist', 'copy:xpk', 'copy:xpk_manifest']);
   grunt.registerTask('sdk', [
+    'clean',
     'imagemin:dist',
     'copy:common',
     'copy:sdk',
