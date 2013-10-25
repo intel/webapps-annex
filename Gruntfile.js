@@ -31,20 +31,18 @@ module.exports = function (grunt) {
     // minify JS
     uglify: {
       dist: {
-        files: {
-          'build/app/js/annex.js': ['app/js/annex.js'],
-          'build/app/js/scaleBody.js': ['app/js/scaleBody.js']
-        }
+        files: [
+          { expand: true, cwd: '.', src: 'app/js/**/*.js', dest: 'build/' }
+        ]
       }
     },
 
     // minify CSS
     cssmin: {
       dist: {
-        files: {
-          'build/app/css/annex.css': ['app/css/annex.css'],
-          'build/app/css/i18n.css': ['app/css/i18n.css']
-        }
+        files: [
+          { expand: true, cwd: '.', src: ['app/css/**/*.css'], dest: 'build/' }
+        ]
       }
     },
 
@@ -180,7 +178,7 @@ module.exports = function (grunt) {
       install: {
         action: 'install',
         remoteFiles: {
-          pattern: '/home/developer/Annex*.wgt',
+          pattern: '/home/developer/<%= packageInfo.name %>*.wgt',
           filter: 'latest'
         }
       },
