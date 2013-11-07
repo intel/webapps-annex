@@ -7,90 +7,6 @@
  *
  */
 
-function queryObj(obj) {
-    this.q = obj;
-    this.isNull = this.q?false:true;
-    this.self = this;
-    this.html = function (val) {
-        this.q.innerHTML = val;
-        return this;
-    }
-
-    this.hasClass = function (c_name) {
-        if (this.isNull)
-            return false;
-        return this.q.classList.contains(c_name);
-    }
-
-    this.addClass = function (c_name) {
-        if (this.isNull)
-            return this;
-        var list = this.q.classList;
-        list.add (c_name);
-        return this;
-    }
-
-    this.removeClass = function (c_name) {
-        if (this.isNull)
-            return this;
-        var list = this.q.classList;
-        list.remove (c_name);
-        return this;
-    }
-
-    this.css = function (item, style) {
-        if (item == 'background-color')
-            item = 'backgroundColor';
-        if (this.isNull)
-            return this;
-        this.q.style[item] = style;
-        return this;
-    }
-
-    this.click = function (fun) {
-        if (this.isNull)
-            return this;
-        this.q.onclick = fun;
-        return this;
-    }
-
-    this.find = function (selector) {
-        if (this.isNull)
-            return this;
-        var obj = this.q.querySelector(selector);
-        return new queryObj(obj);
-    }
-
-    this.hover = function (onmouseover, onmouseout) {
-        if (this.isNull)
-            return this;
-        this.q.onmouseover = onmouseover;
-        this.q.onmouseout = onmouseout;
-        return this;
-    }
-
-    this.attr = function (attr, val) {
-        if (this.isNull)
-            return this;
-        this.q.setAttribute(attr, val);
-        return this;
-    }
-}
-
-function $(selector) {
-    var res;
-    if (typeof selector == "string") {
-        res = document.querySelector(selector);
-    } else {
-        res = selector;
-    }
-    return new queryObj(res);
-}
-
-$.merge = function (a, b) {
-    return a.concat(b);
-}
-
 var World = (function(){
     var w = {
         boardTexture:{board: 'images/game_014_board.png', black: 'images/game_002_blackpc.png', white: 'images/game_003_whitepc.png', leftPieces: 'images/game_004_pcleftside.png', rightPieces: 'images/game_005_pcrightside.png', hidePieces: 'images/game_015_pcside.png', p1Image: 'images/game_011_settings1p.png', p2Image: 'images/game_010_settings2p.png',},
@@ -132,7 +48,87 @@ var World = (function(){
         },
         showWorld: function() {
             if (!this.hasInit) {
-                $('#view').html('<div class="play1_lable"></div><div class="play1_score" id="black_result" align="center">0</div> <div class="play1_pieces_lable"></div> <div class="play2_lable"></div> <div class="play2_score" id="white_result" align="center">0</div> <div class="play2_pieces_lable"></div> <div class="stone_selected"><img id="message" /><span id="turn"></span></div> <div class="left_pieces" id="left_pieces"></div> <div class="right_pieces" id="right_pieces"></div> <a onClick="javascript:World.configure();" class="configure"><img src="images/game_006_settingsbtn.png" /></a> <div class="configure_panel display_none"> <div class="configure_panel_func"> <div class="configure_panel_startover"> <div class="configure_panel_text"></div> </div> <div class="configure_panel_newgame"> <div class="configure_panel_text"></div> </div> <div class="configure_panel_help"> <div class="configure_panel_text"></div> </div> <div class="configure_panel_exit"> <div class="configure_panel_text"></div> </div> </div> <img class="configure_panel_arrow" src="images/game_013_settingsarrow.png" /> </div> <div id="board"></div> <div id="result" class="result result_wood display_none"> <div class="result_win_text" align="center"></div> <img class="result_new_p1_rollover display_none" src="images/winner_004_rollover.png" /> <img class="result_new_p2_rollover display_none" src="images/winner_004_rollover.png" /> <img class="result_exit_rollover display_none" src="images/winner_005_exitrollover.png" /> <a onClick="javascript:World.playSound('+"'snd_navclick');World.init(1);"+'" onMouseOver="$('+"'img.result_new_p1_rollover').removeClass('display_none');World.playSound('snd_navmove');"+'" onMouseOut="$('+"'img.result_new_p1_rollover').addClass('display_none')"+'" class="result_new_p1"></a> <a onClick="javascript:World.playSound('+"'snd_navclick');World.init(2);"+'" onMouseOver="$('+"'img.result_new_p2_rollover').removeClass('display_none');World.playSound('snd_navmove');"+'" onMouseOut="$('+"'img.result_new_p2_rollover').addClass('display_none')"+'" class="result_new_p2"></a> <a onClick="javascript:window.close();" onMouseOver="$('+"'img.result_exit_rollover').removeClass('display_none');World.playSound('snd_navmove');"+'" onMouseOut="$('+"'img.result_exit_rollover').addClass('display_none')"+'" class="result_exit"></a> <div class="result_quit" onClick="javascript:World.closeResult();"></div> </div>');
+                $('#view').html(
+                    '<div class="play1_lable"></div>'+
+                    '<div class="play1_score" id="black_result" align="center">0</div>'+
+                    '<div class="play1_pieces_lable"></div>'+
+                    '<div class="play2_lable"></div>'+
+                    '<div class="play2_score" id="white_result" align="center">0</div>'+
+                    '<div class="play2_pieces_lable"></div>'+
+                    '<div class="stone_selected">'+
+                      '<img id="message" />'+
+                      '<span id="turn"></span>'+
+                    '</div>'+
+                    '<div class="left_pieces" id="left_pieces"></div>'+
+                    '<div class="right_pieces" id="right_pieces"></div>'+
+                     '<a class="configure">'+
+                     '<img src="images/game_006_settingsbtn.png"></a>'+
+                     '<div class="configure_panel display_none">'+
+                       '<div class="configure_panel_func">'+
+                         '<div class="configure_panel_startover">'+
+                           '<div class="configure_panel_text"></div>'+
+                         '</div>'+
+                         '<div class="configure_panel_newgame">'+
+                           '<div class="configure_panel_text"></div>'+
+                         '</div>'+
+                         '<div class="configure_panel_help">'+
+                           '<div class="configure_panel_text"></div>'+
+                         '</div>'+
+                         '<div class="configure_panel_exit">'+
+                           '<div class="configure_panel_text"></div>'+
+                         '</div>'+
+                       '</div>'+
+                       '<img class="configure_panel_arrow" src="images/game_013_settingsarrow.png" />'+
+                     '</div>'+
+                     '<div id="board"></div>'+
+                     '<div id="result" class="result result_wood display_none">'+
+                       '<div class="result_win_text" align="center"></div>'+
+                       '<img class="result_new_p1_rollover display_none" src="images/winner_004_rollover.png" />'+
+                       '<img class="result_new_p2_rollover display_none" src="images/winner_004_rollover.png" />'+
+                       '<img class="result_exit_rollover display_none" src="images/winner_005_exitrollover.png" />'+
+                       '<a class="result_new_p1"></a>'+
+                       '<a class="result_new_p2"></a>'+
+                       '<a class="result_exit"></a>'+
+                       '<div class="result_quit"></div>'+
+                     '</div>')
+                    .on('click','a.configure',function() {
+                         World.configure();
+                    })
+                    .on('click','a.result_new_p1',function() {
+                         World.playSound('snd_navclick');
+                         World.init(1);
+                    })
+                    .on('mouseover','a.result_new_p1',function() {
+                         $('img.result_new_p1_rollover').removeClass('display_none');
+                         World.playSound('snd_navmove');
+                    })
+                    .on('mouseout','a.result_new_p1',function() {
+                         $('img.result_new_p1_rollover').addClass('display_none');
+                    })
+                    .on('click','a.result_new_p2',function() {
+                         World.playSound('snd_navclick');
+                         World.init(2);
+                    })
+                    .on('mouseover','a.result_new_p2',function() {
+                         $('img.result_new_p2_rollover').removeClass('display_none');
+                         World.playSound('snd_navmove');
+                    })
+                    .on('mouseout','a.result_new_p2',function() {
+                         $('img.result_new_p2_rollover').addClass('display_none');
+                    })
+                    .on('click','a.result_exit',function() {
+                         window.close();
+                    })
+                    .on('mouseover','a.result_exit',function() {
+                         $('img.result_exit_rollover').removeClass('display_none');
+                         World.playSound('snd_navmove');
+                    })
+                    .on('mouseout','a.result_exit',function() {
+                         $('img.result_exit_rollover').addClass('display_none');
+                    })
+                    .on('click','div.result_quit',function() {
+                         World.closeResult();
+                    });
                 $('.play1_pieces_lable').html(getMessage('pieces', 'pieces'));
                 $('.play2_pieces_lable').html(getMessage('pieces', 'pieces'));
                 $('#turn').html(getMessage('turn', "'s Turn"));
@@ -143,17 +139,17 @@ var World = (function(){
                 //$('#readme').html(getMessage('readme', 'Readme'));
                 $('.configure_panel_startover').click(function(){
                     World.startOver();
-                }).hover(function(){
+                }).on('mouseover',function(){
                     $(this).css('background-color','#222222');
                     World.playSound('snd_navmove');
-                },function(){
+                }).on('mouseout',function(){
                     $(this).css('background-color','#000000');
                 }).find('.configure_panel_text').html(getMessage('startover','Start over'));
 
-                $('.configure_panel_newgame').hover(function(evt){
+                $('.configure_panel_newgame').on('mouseover',function(evt){
                     $(this).css('background-color','#222222');
                     World.playSound('snd_navmove');
-                },function(evt){
+                }).on('mouseout',function(evt){
                     $(this).css('background-color','#000000');
                 }).click(function(){
                     var n = 1;
@@ -166,19 +162,19 @@ var World = (function(){
 
                 $('.configure_panel_help').click(function(){
                     World.showHelp();
-                }).hover(function(){
+                }).on('mouseover',function(){
                     $(this).css('background-color','#222222');
                     World.playSound('snd_navmove');
-                },function(){
+                }).on('mouseout',function(){
                     $(this).css('background-color','#000000');
                 }).find('.configure_panel_text').html(getMessage('rules','Rules'));
 
                 $('.configure_panel_exit').click(function(){
                     window.close();
-                }).hover(function(){
+                }).on('mouseover',function(){
                     $(this).css('background-color','#222222');
                     World.playSound('snd_navmove');
-                },function(){
+                }).on('mouseout',function(){
                     $(this).css('background-color','#000000');
                 }).find('.configure_panel_text').html(getMessage('exit','Exit'));
                 this.hasInit = true;
@@ -266,7 +262,23 @@ var World = (function(){
             this.endConfigure();
             if (!this.hasHelp) {
                 this.hasHelp = true;
-                $('#help').html('<div class="help_text"  align="center"> <div class="help_title"></div> <div class="help_contain"></div> </div> <img class="help_exit_img display_none" src="images/rules_002_rollover.png" /> <a onClick="javascript:World.exitHelp();" onMouseOver="$('+"'img.help_exit_img').removeClass('display_none');World.playSound('snd_navmove');"+'" onMouseOut="$('+"'img.help_exit_img').addClass('display_none')"+'" class="help_exit"></a>');
+                $('#help').html(
+                    '<div class="help_text" align="center">'+
+                      '<div class="help_title"></div>'+
+                      '<div class="help_contain"></div>'+
+                    '</div>'+
+                    '<img class="help_exit_img display_none" src="images/rules_002_rollover.png" />'+
+                    '<a class="help_exit"></a>')
+                  .on('click','a.help_exit',function() {
+                      World.exitHelp();
+                  })
+                  .on('mouseover','a.help_exit',function() {
+                      $('img.help_exit_img').removeClass('display_none');
+                      World.playSound('snd_navmove');
+                  })
+                  .on('mouseout','a.help_exit',function() {
+                      $('img.help_exit_img').addClass('display_none');
+                  });
                 $('.help_title').html(getMessage('howtoPlay', 'How to Play'));
                 $('.help_contain').html(getMessage('help', "Play a piece on the board so that one or more of your opponent’s pieces are between two of your pieces. All of the opponent’s pieces between your own turn over and become your color.<br>The player with the most pieces on the board at the end of the game wins!"));
                 $('.help_exit').html(getMessage('goBack', 'Go Back'));
@@ -327,7 +339,7 @@ var World = (function(){
         },
         drawPoint: function(place, color){
             $('img#a'+place[0]+place[1]).attr('src', this.boardTexture[color]).removeClass('tip');
-            $('a#l'+place[0]+place[1]).attr('onMouseOver','').attr('onMouseOut','');
+            $('a#l'+place[0]+place[1]).off('mouseover');
         },
         drawPath: function(path, color){
             this.isDrawing = true;
@@ -433,35 +445,66 @@ var World = (function(){
         setTips: function(color) {
             var stone = this.boardTexture[color];
             var spare = this.boardTexture['board'];
+            var makeMouseOverHandler = function(id,stone) {
+              return function() {
+                $('#'+id+' img').attr('src',stone).addClass('tip');
+              };
+            };
+            var makeMouseOutHandler = function(id,spare) {
+              return function() {
+                $('#'+id+' img').attr('src',spare).removeClass('tip');
+              };
+            };
+
             for (var n in this.possible) {
                 var p = this.possible[n];
                 if (this.board[p[0]][p[1]] == 'board') {
                     var id = 'l'+p[0]+p[1];
-                    $('#'+id).attr('onMouseOver',"$('#"+id+" img').attr('src','"+stone+"').addClass('tip');")
-                        .attr('onMouseOut',"$('#"+id+" img').attr('src','"+spare+"').removeClass('tip');");
+                    $('#'+id)
+                      .on('mouseover',makeMouseOverHandler(id,stone))
+                      .on('mouseout',makeMouseOutHandler(id,spare));
                 }
             }
         },
         clearTips: function() {
             var possible = this.possible;
+
             for (var n in possible) {
                 var p = possible[n];
                 var spare = this.boardTexture[this.board[p[0]][p[1]]];
                 var id = 'l'+p[0]+p[1];
-                $('#'+id).attr('onMouseOver','').attr('onMouseOut','').find('img').attr('src', spare).removeClass('tip');
+                $('#'+id)
+                  .off('mouseover')
+                  .off('mouseout').find('img').attr('src', spare).removeClass('tip');
             }
         },
         drawBoard: function(){
+            var $boardview = $('#'+this.boardview);
+            var makeClickHandler = function(i,j) {
+              return function() {
+                World.click(i,j);
+              };
+            };
 
             var str = '';
             for (var i=0; i<this.bounder; i++){
                 str += '<div>';
                 for (var j=0; j<this.bounder; j++){
-                    str += '<span><a onClick="javascript:World.click('+i+','+j+');" id="l'+i+j+'" class="img_style" onMouseOver="" onMouseOut="" ><img src="'+this.boardTexture[this.board[i][j]]+'" id="a'+i+j+'" class="img_board" /></a></span>';
+                    var ij=''+i+j;
+                    var aid='l'+ij;
+                    var iid='a'+ij;
+                    str +=
+                      '<span>'+
+                        '<a id="'+aid+'" class="img_style">'+
+                          '<img id="'+iid+'" src="'+this.boardTexture[this.board[i][j]]+'" class="img_board" />'+
+                        '</a>'+
+                      '</span>';
+                    $boardview
+                      .on('click','#'+iid, makeClickHandler(i,j));
                 }
                 str += '</div>';
             }
-            $('#'+this.boardview).html(str);
+            $boardview.html(str);
             this.drawMessage();
         },
 
@@ -579,7 +622,7 @@ var World = (function(){
                     ni += parseInt(this.directs[n][0]);
                     nj += parseInt(this.directs[n][1]);
                     if (ni >= 0 && ni < this.bounder && nj >= 0 && nj < this.bounder && board[ni][nj] === color) {
-                        path = $.merge(path, tpath);
+                        path = path.concat(tpath);
                     }
                 }
             }
@@ -812,7 +855,6 @@ var World = (function(){
     return w;
 })();
 
-
 function getMessage(key, alter) {
     var ret = alter || '';
     if (window.chrome && window.chrome.i18n && window.chrome.i18n.getMessage) {
@@ -834,7 +876,76 @@ function getMessage(key, alter) {
         }
     }
     return ret;
-}
+};
+
+function registerEventHandlers() {
+  $("body")
+    .on("selectstart",function() {
+      return false;
+    })
+    .on("dragstart",function() {
+      return false;
+    })
+    /* #open1 */
+    .on("click","#open1",function() {
+       World.playSound('snd_navclick');
+       World.init(1);
+    })
+    .on("mouseover","#open1",function() {
+		   $('#open_text_bg_4').removeClass('display_none');
+       World.playSound('snd_navmove');
+    })
+    .on("mouseout","#open1",function() {
+		   $('#open_text_bg_4').addClass('display_none');
+    })
+    /* #open2 */
+    .on("click","#open2",function() {
+      World.playSound('snd_navclick');
+      World.init(2);
+    })
+    .on("mouseover","#open2",function() {
+      $('#open_text_bg_3').removeClass('display_none');
+      World.playSound('snd_navmove');
+    })
+    .on("mouseout","#open2",function() {
+      $('#open_text_bg_3').addClass('display_none');
+    })
+    /* #open_help */
+    .on("click","#open_help",function() {
+      World.showHelp();
+    })
+    .on("mouseover","#open_help",function() {
+      $('#open_text_bg_2').removeClass('display_none');
+      World.playSound('snd_navmove');
+    })
+    .on("mouseout","#open_help",function() {
+      $('#open_text_bg_2').addClass('display_none');
+    })
+    /* #open_exit */
+    .on("click","#open_exit",function() {
+      window.close();
+    })
+    .on("mouseover","#open_exit",function() {
+      $('#open_text_bg_1').removeClass('display_none');
+      World.playSound('snd_navmove');
+    })
+    .on("mouseout","#open_exit",function() {
+      $('#open_text_bg_1').addClass('display_none');
+    })
+    /* #help_exit */
+    .on("click","#help_exit",function() {
+      World.exitHelp();
+    })
+    .on("mouseover","#help_exit",function() {
+      $('img.help_exit_img').removeClass('display_none');
+      World.playSound('snd_navmove');
+    })
+    .on("mouseout","#help_exit",function() {
+      $('img.help_exit_img').addClass('display_none');
+    })
+
+    ;
+};
 
 window.onload = function(){
     var locale = getMessage('locale', 'en');
@@ -848,14 +959,13 @@ window.onload = function(){
     }
     $('title').html(getMessage('name', 'Annex'));
     $('#open1').html(getMessage('1PlayerGame', '1 Player Game'));
-    $('#open2').html(getMessage('2PlayerGame', '2 Player Game'))
+    $('#open2').html(getMessage('2PlayerGame', '2 Player Game'));
     $('#open_help').html(getMessage('howtoPlay', 'How to Play'));
     $('#open_exit').html(getMessage('exit', 'Exit'));
-    $('#licensebtnl').click(function(){
-        World.showLicense("license", "open");
-    });
+
+    registerEventHandlers();
 
     scaleBody(document.getElementsByTagName("body")[0], 720);
 
     World.playSound('snd_theme');
-}
+};

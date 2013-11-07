@@ -7,6 +7,7 @@
     "components"
   ],
   "dependencies": {
+    "intel-appframework": "*",
     "jim-nightshade-font": "http://themes.googleusercontent.com/static/fonts/jimnightshade/v1/_n43lYHXVWNgXegdYRIK9GeI2efzuxEXXKel_Sw2G4E.woff",
     "wqy-microhei": "http://surfnet.dl.sourceforge.net/project/wqy/wqy-microhei/0.2.0-beta/wqy-microhei-0.2.0-beta.tar.gz"
   }

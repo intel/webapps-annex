@@ -15,7 +15,7 @@
     <meta name="author" content="Xinchao He">
     <link rel="stylesheet" href="css/annex.css"/>
 </head>
-<body onselectstart="return false" ondragstart="return false" style="overflow:hidden;">
+<body style="overflow:hidden;">
     <div id="licensepage" style="display: none">
         <div id="licensetext">
             <div id="licensescroll" style="top: -587.5px;">
@@ -69,37 +69,20 @@
         <div id="licensebtnq" class="licensebtn">Back</div>
     </div>
 	<div id="open" class="open" >
-	  <img class="open_title" src="images/opening_002_title.png" />
-	  <img id="open_text_bg_1" class="open_text_bg open_text_bg1 display_none" src="images/opening_003_rollover.png" />
-	  <img id="open_text_bg_2" class="open_text_bg open_text_bg2 display_none" src="images/opening_003_rollover.png" />
-	  <img id="open_text_bg_3" class="open_text_bg open_text_bg3 display_none" src="images/opening_003_rollover.png" />
-	  <img id="open_text_bg_4" class="open_text_bg open_text_bg4 display_none" src="images/opening_003_rollover.png" />
-	  <div class="open_text" align="center">
-		<a onClick="World.playSound('snd_navclick');World.init(1);"
-		   onMouseOver="$('#open_text_bg_4').removeClass('display_none');World.playSound('snd_navmove');"
-		   onMouseOut="$('#open_text_bg_4').addClass('display_none');"
-		   id="open1"
-		   style="color:#49342d;"></a><br>
-		<a onClick="javascript:World.playSound('snd_navclick');World.init(2);"
-		   onMouseOver="$('#open_text_bg_3').removeClass('display_none');World.playSound('snd_navmove');"
-		   onMouseOut="$('#open_text_bg_3').addClass('display_none');"
-		   id="open2"
-		   style="color:#49342d;"></a><br>
-		<a onClick="javascript:World.showHelp();"
-		   onMouseOver="$('#open_text_bg_2').removeClass('display_none');World.playSound('snd_navmove');"
-		   onMouseOut="$('#open_text_bg_2').addClass('display_none');"
-		   id="open_help"
-		   style="color:#49342d;"></a><br>
-		<a onClick="javascript:window.close();"
-		   onMouseOver="$('#open_text_bg_1').removeClass('display_none');World.playSound('snd_navmove');"
-		   onMouseOut="$('#open_text_bg_1').addClass('display_none');"
-		   id="open_exit"
-		   style="color:#49342d;"></a>
-	  </div>
-      <div id="licensebtnl" style="top: 520px; left: 984px;"> i </div>
-	</div>
-	<div id="view" class="world display_none">
-	</div>
+	    <img class="open_title" src="images/opening_002_title.png"/>
+	    <img id="open_text_bg_1" class="open_text_bg open_text_bg1 display_none" src="images/opening_003_rollover.png"/>
+	    <img id="open_text_bg_2" class="open_text_bg open_text_bg2 display_none" src="images/opening_003_rollover.png"/>
+	    <img id="open_text_bg_3" class="open_text_bg open_text_bg3 display_none" src="images/opening_003_rollover.png"/>
+	    <img id="open_text_bg_4" class="open_text_bg open_text_bg4 display_none" src="images/opening_003_rollover.png"/>
+	    <div class="open_text" align="center">
+		    <a id="open1" style="color:#49342d;"></a><br>
+		    <a id="open2" style="color:#49342d;"></a><br>
+		    <a id="open_help" style="color:#49342d;"></a><br>
+		    <a id="open_exit" style="color:#49342d;"></a>
+	    </div>
+        <div id="licensebtnl" style="top: 520px; left: 984px;"> i </div>
+    </div>
+	<div id="view" class="world display_none"></div>
     <div id="help" class="help display_none">
         <div class="help_text" align="center">
             <div class="help_title">
@@ -110,9 +93,10 @@
                 The player with the most pieces on the board at the end of the game wins!
             </div>
         </div>
-        <img class="help_exit_img display_none" src="images/rules_002_rollover.png">
-        <a onclick="javascript:World.exitHelp();" onmouseover="$('img.help_exit_img').removeClass('display_none');World.playSound('snd_navmove');" onmouseout="$('img.help_exit_img').addClass('display_none')" class="help_exit">Go Back</a>
+        <img class="help_exit_img display_none" src="images/rules_002_rollover.png"/>
+        <a id="help_exit" class="help_exit">Go Back</a>
     </div>
+    <script src="lib/intel-appframework/appframework.min.js"></script>
     <script language="text/Javascript" src="js/scaleBody.js" type="text/javascript"></script>
 	<script type="text/javascript" src="js/annex.js"></script>
 </body>
