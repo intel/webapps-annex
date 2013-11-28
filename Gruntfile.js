@@ -139,7 +139,6 @@ module.exports = function (grunt) {
           { expand: true, cwd: 'app/', src: ['js/**'], dest: 'build/sdk/' },
           { expand: true, cwd: 'app/', src: ['css/**'], dest: 'build/sdk/' },
           { expand: true, cwd: 'app/', src: ['*.html'], dest: 'build/sdk/' },
-          { expand: true, cwd: 'platforms/tizen-wgt/', src: ['config.xml'], dest: 'build/sdk/' },
           { expand: true, cwd: '.', src: ['icon*.png'], dest: 'build/sdk/' }
         ]
       },
@@ -160,6 +159,7 @@ module.exports = function (grunt) {
         }
 
       },
+
     },
 
     htmlmin: {
