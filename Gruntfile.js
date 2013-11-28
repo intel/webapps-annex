@@ -209,7 +209,7 @@ module.exports = function (grunt) {
         files: 'build/sdk/**',
         stripPrefix: 'build/sdk/',
         outDir: 'build',
-        suffix: '.wgt'
+        suffix: '.zip'
       }
     },
 
