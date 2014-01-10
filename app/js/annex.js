@@ -943,6 +943,9 @@ function registerEventHandlers() {
     .on("mouseout","#help_exit",function() {
       $('img.help_exit_img').addClass('display_none');
     })
+    .on("click","#licensebtnl",function(){
+        World.showLicense("license", "open");
+    })
 
     ;
 };
