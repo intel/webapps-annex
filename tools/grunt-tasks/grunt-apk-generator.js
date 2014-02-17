@@ -12,6 +12,11 @@ module.exports = function (grunt) {
   var Env = Api.Env;
   var App = Api.App;
 
+  // options passed from the downloader to the generator
+  var passthrough = {
+    xwalkAndroidDir: ''
+  };
+
   var download_xwalk_android = function(data, done) {
     var archiveFetcher = ArchiveFetcher({logger: logger});
 
@@ -99,6 +104,7 @@ module.exports = function (grunt) {
         logger.log('xwalk zip file and app template downloaded and unpacked successfully');
         logger.log('\nxwalkAndroidDir (xwalk_app_template directory inside ' +
                    'unpacked xwalk-android):\n' + xwalkAndroidDir);
+        passthrough.xwalkAndroidDir = xwalkAndroidDir;
         done();
       },
 
@@ -108,6 +114,8 @@ module.exports = function (grunt) {
 
   var generate_apk = function(data,done) {
     var outDir = data.outDir || '.';
+
+    data.envConfig.xwalkAndroidDir = data.envConfig.xwalkAndroidDir || passthrough.xwalkAndroidDir;
 
     // convert to full pathname
     outDir = path.resolve(outDir);
