@@ -14,6 +14,58 @@ module.exports = function (grunt) {
     packageInfo: grunt.file.readJSON('package.json'),
     chromeInfo: grunt.file.readJSON('platforms/chrome-crx/manifest.json'),
 
+    generate_apk: {
+      apk : {
+        //"outDir": process.env.HOME+'/z/webapps/webapps-annex/build',
+        "outDir": 'build',
+
+        "appConfig": {
+          // display name for the app on the device;
+          // the sanitisedName used to construct the Locations object later
+          // is derived from this
+          name: '<%= packageInfo.name %>',
+
+          // package for the app's generated Java files; this works best if
+          // you have at least one period character between two character
+          // strings, and no digits
+          pkg: 'org.org01.webapps.annex',
+
+          icon: 'build/xpk/icon_128.png',
+
+          fullscreen: true,
+
+          remoteDebugging: true,
+
+          // path to the directory containing your HTML5 app;
+          // note that this must use the correct path separators for your
+          // platform: Windows uses '\\' while Linux uses '/'
+          appRoot: 'build/xpk',
+
+          // relative path from appRoot of the entry HTML file for your app
+          appLocalPath: 'index.html',
+
+          embedded: true
+        },
+
+        envConfig: {
+          // path to the root of your Android SDK installation;
+          // on Windows, use the path to the sdk directory inside
+          // the installation, e.g. 'c:\\android-sdk\\sdk'
+          androidSDKDir: '/opt/android-sdk-linux/',
+
+          // path to the xwalk_app_template directory; you can either
+          // download and unpack this manually, or use the xwalk_android_dl
+          // script to do so (part of this project; see the README for details);
+          // note that path separators specific to your platform must be used
+          xwalkAndroidDir: 'build/crosswalk-5.32.88.0-x86/xwalk_app_template/',
+
+          arch: 'x86',
+
+          androidAPIVersion: "18.0.1"
+        }
+      }
+    },
+
     clean: ['build'],
 
     release: {
@@ -274,7 +326,8 @@ module.exports = function (grunt) {
         localPort: 9090,
         stopOnFailure: true
       }
-    }
+    },
+
   });
 
   grunt.registerTask('dist', [
@@ -338,4 +391,5 @@ module.exports = function (grunt) {
   grunt.registerTask('sdk-install', ['sdk', 'install']);
 
   grunt.registerTask('default', 'wgt');
+  grunt.registerTask('apk', 'generate_apk');
 };
