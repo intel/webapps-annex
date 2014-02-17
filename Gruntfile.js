@@ -14,8 +14,11 @@ module.exports = function (grunt) {
     packageInfo: grunt.file.readJSON('package.json'),
     chromeInfo: grunt.file.readJSON('platforms/chrome-crx/manifest.json'),
 
-    generate_apk: {
-      apk : {
+    apk_generator: {
+      download_xwalk_android : {
+        "outDir": 'build'
+      },
+      generate_apk : {
         //"outDir": process.env.HOME+'/z/webapps/webapps-annex/build',
         "outDir": 'build',
 
@@ -57,7 +60,7 @@ module.exports = function (grunt) {
           // download and unpack this manually, or use the xwalk_android_dl
           // script to do so (part of this project; see the README for details);
           // note that path separators specific to your platform must be used
-          xwalkAndroidDir: 'build/crosswalk-5.32.88.0-x86/xwalk_app_template/',
+          xwalkAndroidDir: 'build/crosswalk-*/xwalk_app_template/',
 
           arch: 'x86',
 
@@ -391,5 +394,8 @@ module.exports = function (grunt) {
   grunt.registerTask('sdk-install', ['sdk', 'install']);
 
   grunt.registerTask('default', 'wgt');
-  grunt.registerTask('apk', 'generate_apk');
+  grunt.registerTask('apk', [
+    'xpk',
+    'apk_generator'
+  ]);
 };
