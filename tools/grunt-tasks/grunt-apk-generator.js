@@ -137,17 +137,7 @@ module.exports = function (grunt) {
         var app = objects[1];
 
         // create a Locations object for this App instance
-        var locations = Api.Locations(app.sanitisedName, app.pkg, "x86", outDir);
-
-        // show the finalised configuration
-        console.log('OBJECTS:');
-        console.log(objects);
-        console.log('LOCATIONS:');
-        console.log(locations);
-        console.log('ENV CONFIGURATION:');
-        console.log(env);
-        console.log('APP CONFIGURATION:');
-        console.log(app);
+        var locations = Api.Locations(app.sanitisedName, app.pkg, env.arch, outDir);
 
         // run the build
         return env.build(app, locations);
