@@ -1,5 +1,8 @@
 module.exports = function (grunt) {
   var path = require('path');
+  var which = require('which');
+  var fs = require('fs');
+  var semver = require('semver');
 
   // input the crosswalk-apk-generator API
   var Api = require('crosswalk-apk-generator');
@@ -124,6 +127,23 @@ module.exports = function (grunt) {
 
     // convert to full pathname
     outDir = path.resolve(outDir);
+
+    // automatically find androidSDKDir from 'android' command in PATH
+    if (!data.envConfig.androidSDKDir) {
+      var androidPath = which.sync('android');
+      // up two directories
+      data.envConfig.androidSDKDir = path.dirname(path.dirname(androidPath));
+    }
+
+    if (!data.envConfig.androidAPIVersion) {
+      // get the api latest version from androidSDK/build-tools
+      var buildToolsDir = path.join(data.envConfig.androidSDKDir,"build-tools");
+      var files = fs.readdirSync(buildToolsDir);
+      var androidAPIVersions = files.sort(semver.compare);
+      var length = androidAPIVersions.length;
+      var latest = androidAPIVersions[length-1];
+      data.envConfig.androidAPIVersion = latest;
+    }
 
     // create a promise for a configured Env object
     var envPromise = Env(data.envConfig);

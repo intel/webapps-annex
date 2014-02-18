@@ -73,7 +73,8 @@ module.exports = function (grunt) {
           // path to the root of your Android SDK installation;
           // on Windows, use the path to the sdk directory inside
           // the installation, e.g. 'c:\\android-sdk\\sdk'
-          androidSDKDir: '/opt/android-sdk-linux/',
+          // automatically obtained from the 'android' command's path
+          //androidSDKDir: '/opt/android-sdk-linux/',
 
           // path to the xwalk_app_template directory; you can either
           // download and unpack this manually, or use the xwalk_android_dl
@@ -86,7 +87,8 @@ module.exports = function (grunt) {
           // don't set this to allow it to be set by the downloader
           //arch: 'x86',
 
-          androidAPIVersion: "18.0.1"
+          // automatically obtains latest from androidSDKDir/build-tools
+          //androidAPIVersion: "18.0.1"
         }
       }
     },
@@ -418,7 +420,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', 'wgt');
   grunt.registerTask('apk', [
     'xpk',
-    'apk_generator:download_xwalk_android:canary_arm',
+    'apk_generator:download_xwalk_android:canary_x86',
     'apk_generator:generate_apk'
   ]);
 };
