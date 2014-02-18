@@ -14,7 +14,8 @@ module.exports = function (grunt) {
 
   // options passed from the downloader to the generator
   var passthrough = {
-    xwalkAndroidDir: ''
+    xwalkAndroidDir: '',
+    arch: ''
   };
 
   var download_xwalk_android = function(data, done) {
@@ -104,6 +105,7 @@ module.exports = function (grunt) {
         logger.log('xwalk zip file and app template downloaded and unpacked successfully');
         logger.log('\nxwalkAndroidDir (xwalk_app_template directory inside ' +
                    'unpacked xwalk-android):\n' + xwalkAndroidDir);
+        passthrough.arch = params.arch;
         passthrough.xwalkAndroidDir = xwalkAndroidDir;
         done();
       },
@@ -115,7 +117,10 @@ module.exports = function (grunt) {
   var generate_apk = function(data,done) {
     var outDir = data.outDir || '.';
 
-    data.envConfig.xwalkAndroidDir = data.envConfig.xwalkAndroidDir || passthrough.xwalkAndroidDir;
+    // use values from downloader, if none specified
+    Object.keys(passthrough).forEach(function(property){
+      data.envConfig[property] = data.envConfig[property] || passthrough[property];
+    });
 
     // convert to full pathname
     outDir = path.resolve(outDir);
@@ -178,7 +183,31 @@ module.exports = function (grunt) {
       generate_apk(this.data, done);
     } else
     if (this.target == 'download_xwalk_android') {
-      download_xwalk_android(this.data, done);
+      // support a list of targets, eg :
+      //   apk_generator: {
+      //     download_xwalk_android : {
+      //       stable_x86: {
+      //         "outDir": 'build',
+      //         "channel": 'stable',
+      //         "arch": 'x86'
+      //       },
+      //       stable_arm: {
+      //         "outDir": 'build',
+      //         "channel": 'stable',
+      //       ... and so one
+      //   
+      // or just a single one :
+      //   apk_generator: {
+      //     download_xwalk_android : {
+      //       "outDir": 'build',
+      //       "channel": 'stable',
+      //       "arch": 'x86'
+      //     },
+      //     ...
+      var targetName = this.args[0];
+      var data = (targetName)?this.data[targetName]:this.data;
+
+      download_xwalk_android(data, done);
     }
   });
 

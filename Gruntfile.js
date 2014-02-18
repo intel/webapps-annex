@@ -16,8 +16,26 @@ module.exports = function (grunt) {
 
     apk_generator: {
       download_xwalk_android : {
-        "outDir": 'build',
-        "channel": 'stable'
+        stable_x86: {
+          "outDir": 'build',
+          "channel": 'stable',
+          "arch": 'x86'
+        },
+        stable_arm: {
+          "outDir": 'build',
+          "channel": 'stable',
+          "arch": 'arm'
+        },
+        canary_x86: {
+          "outDir": 'build',
+          "channel": 'canary',
+          "arch": 'x86'
+        },
+        canary_arm: {
+          "outDir": 'build',
+          "channel": 'canary',
+          "arch": 'arm'
+        }
       },
       generate_apk : {
         //"outDir": process.env.HOME+'/z/webapps/webapps-annex/build',
@@ -61,10 +79,12 @@ module.exports = function (grunt) {
           // download and unpack this manually, or use the xwalk_android_dl
           // script to do so (part of this project; see the README for details);
           // note that path separators specific to your platform must be used
-          //xwalkAndroidDir: 'build/crosswalk-*/xwalk_app_template/',
           // don't set this to allow it to be set by the downloader
+          //xwalkAndroidDir: 'build/crosswalk-*/xwalk_app_template/',
 
-          arch: 'x86',
+          // architecture of embedded crosswalk
+          // don't set this to allow it to be set by the downloader
+          //arch: 'x86',
 
           androidAPIVersion: "18.0.1"
         }
@@ -398,6 +418,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', 'wgt');
   grunt.registerTask('apk', [
     'xpk',
-    'apk_generator'
+    'apk_generator:download_xwalk_android:canary_arm',
+    'apk_generator:generate_apk'
   ]);
 };
