@@ -17,8 +17,7 @@ module.exports = function (grunt) {
     apk_generator: {
       download_xwalk_android : {
         "outDir": 'build',
-        "channel": 'canary',
-        //"url": 'http://localhost/crosswalk-5.32.90.0-x86.zip'
+        "channel": 'stable'
       },
       generate_apk : {
         //"outDir": process.env.HOME+'/z/webapps/webapps-annex/build',
