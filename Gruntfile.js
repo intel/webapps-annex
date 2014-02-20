@@ -14,9 +14,11 @@ module.exports = function (grunt) {
     packageInfo: grunt.file.readJSON('package.json'),
     chromeInfo: grunt.file.readJSON('platforms/chrome-crx/manifest.json'),
 
-    apk_generator: {
+    crosswalk: {
       //"outDir": process.env.HOME+'/z/webapps/webapps-annex/build',
       "outDir": 'build',
+
+      verbose: false,
 
       // display name for the app on the device;
       // the sanitisedName used to construct the Locations object later
@@ -42,6 +44,7 @@ module.exports = function (grunt) {
       // relative path from appRoot of the entry HTML file for your app
       appLocalPath: 'index.html',
 
+      // embed crosswalk itself into the package
       //embedded: true,
 
       // path to the root of your Android SDK installation;
@@ -54,11 +57,12 @@ module.exports = function (grunt) {
       // download and unpack this manually, or use the xwalk_android_dl
       // script to do so (part of this project; see the README for details);
       // note that path separators specific to your platform must be used
-      // eg: export XWALKANDROIDDIR=$HOME/Downloads/crosswalk-3.32.53.4-x86
-      xwalkAndroidDir: process.env.XWALKANDROIDDIR,
+      // eg: export XWALK_APP_TEMPLATE_DIR=$HOME/Downloads/crosswalk-3.32.53.4-x86
+      //xwalkAndroidDir: project/specific/folder
 
       // architecture of embedded crosswalk
-      // default: it is obtains from the path of xwalkAndroidDir
+      // default: it is obtained from the path of xwalkAndroidDir
+      //          it should contains the string 'x86' or 'arm'
       //arch: 'x86',
 
       // default: automatically obtains latest from androidSDKDir/build-tools
@@ -325,8 +329,7 @@ module.exports = function (grunt) {
         localPort: 9090,
         stopOnFailure: true
       }
-    },
-
+    }
   });
 
   grunt.registerTask('dist', [
@@ -392,6 +395,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default', 'wgt');
   grunt.registerTask('apk', [
     'xpk',
-    'apk_generator:generate_apk'
+    'crosswalk'
   ]);
 };

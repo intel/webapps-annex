@@ -4,16 +4,7 @@ module.exports = function (grunt) {
   var fs = require('fs');
   var semver = require('semver');
 
-  // input the crosswalk-apk-generator API
   var Api = require('crosswalk-apk-generator');
-
-  // the Q object is accessible from Api
-  var Q = Api.Q;
-  var logger = Api.ConsoleLogger();
-  var ArchiveFetcher = Api.ArchiveFetcher;
-  var VersionsFetcher = Api.VersionsFetcher;
-  var Env = Api.Env;
-  var App = Api.App;
 
   var generate_apk = function(data,done) {
     var outDir = data.outDir || '.';
@@ -21,7 +12,7 @@ module.exports = function (grunt) {
     var envConfig = {};
 
     // copy user-supplied parameters into envConfig or appConfig
-    var envProperties = [ 'androidSDKDir', 'xwalkAndroidDir', 'arch', 'androidAPIVersion' ];
+    var envProperties = Object.keys(Api.Env.CONFIG_DEFAULTS);
     Object.keys(data).forEach(function(property){
       if (envProperties.indexOf(property)!=-1) {
         envConfig[property] = data[property];
@@ -30,9 +21,6 @@ module.exports = function (grunt) {
       }
     });
 
-    // convert to full pathname
-    outDir = path.resolve(outDir);
-
     // automatically find androidSDKDir from 'android' command in PATH
     if (!envConfig.androidSDKDir) {
       var androidPath = which.sync('android');
@@ -40,10 +28,17 @@ module.exports = function (grunt) {
       envConfig.androidSDKDir = path.dirname(path.dirname(androidPath));
     }
 
-    // determine arch from directory name
-    if (!envConfig.arch) {
+    if (!envConfig.xwalkAndroidDir) {
+      var fromEnvVar = process.env.XWALK_APP_TEMPLATE;
+      if (fromEnvVar) {
+        envConfig.xwalkAndroidDir = fromEnvVar;
+      }
+    }
+
+    // determine arch from xwalkAndroiDir name
+    // eg $HOME/Downloads/crosswalk-4.32.69.0-x86/xwalk_app_template
+    if (!envConfig.arch && envConfig.xwalkAndroidDir) {
       var xwalkAndroidRoot = path.dirname(envConfig.xwalkAndroidDir);
-      //HOME/Downloads/crosswalk-4.32.69.0-x86/xwalk_app_template
       var pathBits = xwalkAndroidRoot.split(path.sep);
       var sdkName = pathBits[pathBits.length-2];
       var sdkNameBits = sdkName.split('-');
@@ -61,11 +56,15 @@ module.exports = function (grunt) {
       envConfig.androidAPIVersion = latest;
     }
 
+    var logger = grunt.log;
+    console.log("MAXMAXMAX", data.verbose);
+    var commandRunner = Api.CommandRunner(data.verbose, logger);
+
     // create a promise for a configured Env object
-    var envPromise = Env(envConfig);
+    var envPromise = Api.Env(envConfig, {commandRunner: commandRunner});
 
     // create a promise for a configured App object
-    var appPromise = App(appConfig);
+    var appPromise = Api.App(appConfig);
 
     // use the Q promises library to synchronise the promises, so we
     // can create the objects in "parallel"
@@ -112,10 +111,10 @@ module.exports = function (grunt) {
   *   version - application version
   *
   */
-  grunt.registerTask('apk_generator', 'Tasks for generating apk packages', function (identifier) {
+  grunt.registerTask('crosswalk', 'Tasks for generating apk packages for crosswalk on Android', function (identifier) {
     var done = this.async();
 
-    generate_apk(grunt.config('apk_generator'), done);
+    generate_apk(grunt.config('crosswalk'), done);
   });
 
 };
