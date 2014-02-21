@@ -35,7 +35,7 @@ module.exports = function (grunt) {
       }
     }
 
-    // determine arch from xwalkAndroiDir name
+    // determine arch from xwalkAndroidDir name
     // eg $HOME/Downloads/crosswalk-4.32.69.0-x86/xwalk_app_template
     if (!envConfig.arch && envConfig.xwalkAndroidDir) {
       var xwalkAndroidRoot = path.dirname(envConfig.xwalkAndroidDir);

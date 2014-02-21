@@ -57,7 +57,7 @@ module.exports = function (grunt) {
       // download and unpack this manually, or use the xwalk_android_dl
       // script to do so (part of this project; see the README for details);
       // note that path separators specific to your platform must be used
-      // eg: export XWALK_APP_TEMPLATE_DIR=$HOME/Downloads/crosswalk-3.32.53.4-x86
+      // eg: export XWALK_APP_TEMPLATE=$HOME/Downloads/crosswalk-3.32.53.4-x86
       //xwalkAndroidDir: project/specific/folder
 
       // architecture of embedded crosswalk
