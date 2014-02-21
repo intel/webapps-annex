@@ -40,10 +40,15 @@ module.exports = function (grunt) {
     if (!envConfig.arch && envConfig.xwalkAndroidDir) {
       var xwalkAndroidRoot = path.dirname(envConfig.xwalkAndroidDir);
       var pathBits = xwalkAndroidRoot.split(path.sep);
-      var sdkName = pathBits[pathBits.length-2];
+      if (path.sep=='\\' && pathBits.length==1) {
+        // path is something like c:/bla/bla/bla, ie not using \
+        // split with '/' instead
+        pathBits = xwalkAndroidRoot.split('/');
+      }
+      var sdkName = pathBits[pathBits.length-1];
       var sdkNameBits = sdkName.split('-');
 
-      envConfig.arch = sdkNameBits[sdkNameBits-1];
+      envConfig.arch = sdkNameBits[sdkNameBits.length-1];
     }
 
     if (!envConfig.androidAPIVersion) {
@@ -57,7 +62,6 @@ module.exports = function (grunt) {
     }
 
     var logger = grunt.log;
-    console.log("MAXMAXMAX", data.verbose);
     var commandRunner = Api.CommandRunner(data.verbose, logger);
 
     // create a promise for a configured Env object
