@@ -39,20 +39,36 @@ module.exports = function (grunt) {
     }
 
     // determine arch from xwalkAndroidDir/native_libs/
-    if (!envConfig.arch && envConfig.xwalkAndroidDir) {
+    if (envConfig.xwalkAndroidDir) {
       var nativeLibs = path.join(envConfig.xwalkAndroidDir,'native_libs');
       var arches = fs.readdirSync(nativeLibs);
-      if (arches.length==0) {
-        grunt.log.error('no architectures found in '+nativeLibs);
-        done(false);
-      } else
-      if (arches.length>1) {
-        grunt.log.error('multiple architectures found in '+nativeLibs);
-        grunt.log.error('please specify using the \'arch\' property in your Gruntfile.js');
-        done(false);
-      }
 
-      envConfig.arch = arches[0];
+      if (envConfig.arch) {
+        // check it matches
+        var foundArch = arches[0].slice(0,3);
+        var specified = envConfig.arch.slice(0,3);
+        if (foundArch!=specified) {
+          grunt.log.error('\'arch\' property set to ('+specified+') in Gruntfile.js, but no app template for that architecture found.');
+          grunt.log.error('architectures found :', arches);
+          grunt.log.error('have you set xwalkAndroidDir property or XWALK_APP_TEMPLATE correctly?');
+          grunt.log.error('XWALK_APP_TEMPLATE: ', process.env.XWALK_APP_TEMPLATE);
+          done(false);
+        }
+      } else {
+        // use the one in native_libs, if only one
+        if (arches.length==0) {
+          grunt.log.error('no architectures found in '+nativeLibs);
+          done(false);
+        } else
+        if (arches.length>1) {
+          grunt.log.error('multiple architectures found in '+nativeLibs);
+          grunt.log.error('please specify using the \'arch\' property in your Gruntfile.js');
+          done(false);
+        }
+
+        // use discovered
+        envConfig.arch = arches[0];
+      }
     }
 
     if (!envConfig.androidAPIVersion) {
@@ -121,10 +137,10 @@ module.exports = function (grunt) {
   *   version - application version
   *
   */
-  grunt.registerTask('crosswalk', 'Tasks for generating apk packages for crosswalk on Android', function (identifier) {
+  grunt.registerMultiTask('crosswalk', 'Tasks for generating apk packages for crosswalk on Android', function (identifier) {
     var done = this.async();
 
-    generate_apk(grunt.config('crosswalk'), done);
+    generate_apk(this.data, done);
   });
 
 };
