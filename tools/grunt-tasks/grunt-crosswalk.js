@@ -32,23 +32,27 @@ module.exports = function (grunt) {
       var fromEnvVar = process.env.XWALK_APP_TEMPLATE;
       if (fromEnvVar) {
         envConfig.xwalkAndroidDir = fromEnvVar;
+      } else {
+        grunt.log.error('No xwalk app template specified. Use xwalkAndroidDir in Gruntfile.js or XWALK_APP_TEMPLATE.');
+        done(false);
       }
     }
 
-    // determine arch from xwalkAndroidDir name
-    // eg $HOME/Downloads/crosswalk-4.32.69.0-x86/xwalk_app_template
+    // determine arch from xwalkAndroidDir/native_libs/
     if (!envConfig.arch && envConfig.xwalkAndroidDir) {
-      var xwalkAndroidRoot = path.dirname(envConfig.xwalkAndroidDir);
-      var pathBits = xwalkAndroidRoot.split(path.sep);
-      if (path.sep=='\\' && pathBits.length==1) {
-        // path is something like c:/bla/bla/bla, ie not using \
-        // split with '/' instead
-        pathBits = xwalkAndroidRoot.split('/');
+      var nativeLibs = path.join(envConfig.xwalkAndroidDir,'native_libs');
+      var arches = fs.readdirSync(nativeLibs);
+      if (arches.length==0) {
+        grunt.log.error('no architectures found in '+nativeLibs);
+        done(false);
+      } else
+      if (arches.length>1) {
+        grunt.log.error('multiple architectures found in '+nativeLibs);
+        grunt.log.error('please specify using the \'arch\' property in your Gruntfile.js');
+        done(false);
       }
-      var sdkName = pathBits[pathBits.length-1];
-      var sdkNameBits = sdkName.split('-');
 
-      envConfig.arch = sdkNameBits[sdkNameBits.length-1];
+      envConfig.arch = arches[0];
     }
 
     if (!envConfig.androidAPIVersion) {
@@ -62,6 +66,8 @@ module.exports = function (grunt) {
     }
 
     var logger = grunt.log;
+    logger.log = logger.write; // Api.CommandRunner calls logger.log()
+
     var commandRunner = Api.CommandRunner(data.verbose, logger);
 
     // create a promise for a configured Env object

@@ -61,9 +61,10 @@ module.exports = function (grunt) {
       //xwalkAndroidDir: project/specific/folder
 
       // architecture of embedded crosswalk
-      // default: it is obtained from the path of xwalkAndroidDir
-      //          it should contains the string 'x86' or 'arm'
-      //arch: 'x86',
+      // default: it is obtained from the contents of
+      // xwalkAndroidDir/native_libs/ if there is only one arch in there,
+      // else it should be specified as either 'x86' or 'arm'
+      //arch: 'arm',
 
       // default: automatically obtains latest from androidSDKDir/build-tools
       //androidAPIVersion: "18.0.1"
