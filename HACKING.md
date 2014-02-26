@@ -103,7 +103,7 @@ CSS, and HTML) using:
 Note that in both cases, the files comprising the packages are
 first copied into the build/wgt and build/sdk directories respectively.
 
-To creat packages for Android use the 'apk' target:
+To create packages for Android use the 'apk' target:
 
     grunt apk
 
