@@ -70,6 +70,16 @@ There are a few options for running the application:
     then load the build/crx directory as an unpacked extension in Chrome
     developer mode. (The build can't currently make full .crx packages.)
 
+*   Build the files for Android with:
+
+        grunt apk
+
+    This will build two apks in build/ named AppName_{x86,arm}.apk.
+    Install the appropriate one to your device as usual - for
+    example, ```adb install -r build/AppName_x86.apk```.
+    Building packages for Android requires some set up - please see
+    [crosswalk-apk-generator README.md](https://github.com/crosswalk-project/crosswalk-apk-generator/blob/master/README.md#pre-requisites).
+
 # PACKAGING
 
 To sign the app, grunt needs to know the location of your Tizen SDK
