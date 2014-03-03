@@ -21,6 +21,8 @@ module.exports = function (grunt) {
 
         verbose: false,
 
+        version: '<%= packageInfo.version %>',
+
         // display name for the app on the device;
         // the sanitisedName used to construct the Locations object later
         // is derived from this
@@ -76,6 +78,8 @@ module.exports = function (grunt) {
 
         verbose: false,
 
+        version: '<%= packageInfo.version %>',
+
         // display name for the app on the device;
         // the sanitisedName used to construct the Locations object later
         // is derived from this
@@ -84,7 +88,7 @@ module.exports = function (grunt) {
         // package for the app's generated Java files; this works best if
         // you have at least one period character between two character
         // strings, and no digits
-        pkg: 'org.org01.webapps.annex',
+        pkg: 'org.org01.webapps.<%= packageInfo.name.toLowerCase() %>',
 
         icon: 'icon_128.png',
 
