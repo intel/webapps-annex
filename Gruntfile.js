@@ -1,6 +1,7 @@
 module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-tizen');
+  grunt.loadNpmTasks('grunt-crosswalk');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
