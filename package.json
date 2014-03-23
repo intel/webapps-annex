@@ -1,6 +1,6 @@
 {
   "name": "Annex",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Reversi/Othello",
   "main": "app/index.html",
   "scripts": {
