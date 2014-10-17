@@ -545,7 +545,7 @@ var World = (function(){
 
         isContain: function(place, _array) {
             var heat = _array || [];
-            for (var i in heat){
+            for (var i = 0; i < heat.length; i++){
                 if (heat[i][0] == place[0] && heat[i][1] == place[1]) {
                     return true;
                 }
@@ -561,9 +561,10 @@ var World = (function(){
             for (var i=0; i<this.bounder; i++){
                 for (var j=0; j<this.bounder; j++){
                     if (board[i][j] === revColor) {
-                        for (var n in this.directs) {
-                            var ni = i+parseInt(this.directs[n][0]);
-                            var nj = j+parseInt(this.directs[n][1]);
+                        var directs = this.directs;
+                        for (var n = 0; n < directs.length; n++) {
+                            var ni = i+parseInt(directs[n][0]);
+                            var nj = j+parseInt(directs[n][1]);
                             if (ni >= 0 && ni < this.bounder && nj >= 0 && nj < this.bounder && board[ni][nj] === 'board'){
                                 if (this.canRevert([ni, nj], color, board) && !this.isContain([ni, nj], ret)){
                                     ret.push([parseInt(ni), parseInt(nj)]);
@@ -581,9 +582,10 @@ var World = (function(){
             var j = parseInt(place[1]);
             var revColor = ((color == 'white')?'black':'white');
             var board = _board || this.board;
-            for (var n in this.directs) {
-                var di = parseInt(this.directs[n][0]);
-                var dj = parseInt(this.directs[n][1]);
+            var directs = this.directs;
+            for (var n = 0; n < directs.length; n++) {
+                var di = parseInt(directs[n][0]);
+                var dj = parseInt(directs[n][1]);
                 var ni = i+di;
                 var nj = j+dj;
                 while (ni >= 0 && ni < this.bounder && nj >= 0 && nj < this.bounder && board[ni][nj] === revColor){
@@ -613,14 +615,15 @@ var World = (function(){
             var revColor = ((color == 'white')?'black':'white');
             var board = _board || this.board;
             var path = [];
-            for (var n in this.directs) {
-                var ni = i+parseInt(this.directs[n][0]);
-                var nj = j+parseInt(this.directs[n][1]);
+            var directs = this.directs;
+            for (var n = 0; n < directs.length; n++) {
+                var ni = i+parseInt(directs[n][0]);
+                var nj = j+parseInt(directs[n][1]);
                 var tpath = [];
                 while (ni >= 0 && ni < this.bounder && nj >= 0 && nj < this.bounder && board[ni][nj] === revColor){
                     tpath.push([ni, nj]);
-                    ni += parseInt(this.directs[n][0]);
-                    nj += parseInt(this.directs[n][1]);
+                    ni += parseInt(directs[n][0]);
+                    nj += parseInt(directs[n][1]);
                     if (ni >= 0 && ni < this.bounder && nj >= 0 && nj < this.bounder && board[ni][nj] === color) {
                         path = path.concat(tpath);
                     }
@@ -731,7 +734,7 @@ var World = (function(){
                 revColor = color;
             }
             up = this.getBestPlaceSet(up);
-            for (var p in up) {
+            for (var p = 0; p < up.length; p++) {
                 nextValue += this.evaluate(up[p], revColor, board, level-1, heap);
             }
             if (up.length > 0){
