@@ -8,6 +8,16 @@
  */
 
 var World = (function(){
+    var mtable = {
+        0:{ 0:100, 1:-50, 2:40, 3:30, 4:30, 5:40, 6:-50, 7:100,},
+        1:{ 0:-50, 1:-30, 2:5,  3:1,  4:1,  5:5,  6:-30, 7:-50,},
+        2:{ 0:40,  1:5,   2:20, 3:10, 4:10, 5:20, 6:5,   7:40,},
+        3:{ 0:30,  1:1,   2:10, 3:0,  4:0,  5:10, 6:1,   7:30,},
+        4:{ 0:30,  1:1,   2:10, 3:0,  4:0,  5:10, 6:1,   7:30,},
+        5:{ 0:40,  1:5,   2:20, 3:10, 4:10, 5:20, 6:5,   7:40,},
+        6:{ 0:-50, 1:-30, 2:5,  3:1,  4:1,  5:5,  6:-30, 7:-50,},
+        7:{ 0:100, 1:-50, 2:40, 3:30, 4:30, 5:40, 6:-50, 7:100,},
+    };
     var w = {
         boardTexture:{board: 'images/game_014_board.png', black: 'images/game_002_blackpc.png', white: 'images/game_003_whitepc.png', leftPieces: 'images/game_004_pcleftside.png', rightPieces: 'images/game_005_pcrightside.png', hidePieces: 'images/game_015_pcside.png', p1Image: 'images/game_011_settings1p.png', p2Image: 'images/game_010_settings2p.png',},
         board: [[],[],[],[],[],[],[],[],],
@@ -646,16 +656,6 @@ var World = (function(){
             var board = _board || this.board;
             var i = parseInt(place[0]);
             var j = parseInt(place[1]);
-            var mtable = {
-            0:{ 0:100, 1:-50, 2:40, 3:30, 4:30, 5:40, 6:-50, 7:100,},
-            1:{ 0:-50, 1:-30, 2:5,  3:1,  4:1,  5:5,  6:-30, 7:-50,},
-            2:{ 0:40,  1:5,   2:20, 3:10, 4:10, 5:20, 6:5,   7:40,},
-            3:{ 0:30,  1:1,   2:10, 3:0,  4:0,  5:10, 6:1,   7:30,},
-            4:{ 0:30,  1:1,   2:10, 3:0,  4:0,  5:10, 6:1,   7:30,},
-            5:{ 0:40,  1:5,   2:20, 3:10, 4:10, 5:20, 6:5,   7:40,},
-            6:{ 0:-50, 1:-30, 2:5,  3:1,  4:1,  5:5,  6:-30, 7:-50,},
-            7:{ 0:100, 1:-50, 2:40, 3:30, 4:30, 5:40, 6:-50, 7:100,},
-            };
             return parseInt(mtable[i][j]);
         },
         evaluate: function(place, _color, _board, _level, _heap){
