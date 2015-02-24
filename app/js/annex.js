@@ -332,12 +332,11 @@ var World = (function(){
             this.clearTips();
             $('#pc'+this.step%2+Math.floor(this.step/2)).attr('src', this.boardTexture['hidePieces']);
             this.step += 1;
-            if (this.step >= 50)
-                this.level += 1;
-            else if (this.setp >= 53)
-                this.level += 1;
-            else if (this.step >= 55)
+            if (this.step >= 55) {
                 this.level += 2;
+            } else if (this.step >= 50) {
+                this.level += 1;
+            }
             this.playSound('snd_tileplace');
             this.setPoint(place, color);
             this.setBorder(place);
