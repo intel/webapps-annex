@@ -857,28 +857,41 @@ var World = (function(){
     return w;
 })();
 
-function getMessage(key, alter) {
+var getMessage = function (key, alter) {
     var ret = alter || '';
-    if (window.chrome && window.chrome.i18n && window.chrome.i18n.getMessage) {
-        ret = chrome.i18n.getMessage(key);
-    } else {
-        if (typeof this.messages == 'undefined') {
-            try {
-                var request = new XMLHttpRequest();
-                request.open("GET", "_locales/en/messages.json", false);
-                request.send();
-                var res = request.responseText;
-                this.messages = window.eval(res);
-            } catch (err) {
-                return ret;
-            }
-        }
-        if (this.messages && (this.messages.hasOwnProperty(key)) && (this.messages[key].hasOwnProperty('message'))) {
-            ret = this.messages[key].message;
-        }
+    if (this.messages && (this.messages.hasOwnProperty(key)) && (this.messages[key].hasOwnProperty('message'))) {
+        ret = this.messages[key].message;
     }
     return ret;
 };
+
+function prepareMessages() {
+    var self = this;
+    return new Promise(function (resolve, reject) {
+        if (window.chrome && window.chrome.i18n && window.chrome.i18n.getMessage) {
+            self.getMessage = chrome.i18n.getMessage;
+            resolve();
+        } else {
+            var request = new XMLHttpRequest();
+            request.open("GET", "_locales/en/messages.json");
+
+            request.onload = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    self.messages = JSON.parse(request.responseText);
+                    resolve(request.response);
+                } else {
+                    reject(Error(request.statusText));
+                }
+            };
+
+            // Handle network errors
+            request.onerror = function() {
+              reject(Error("Network Error"));
+            };
+            request.send();
+        }
+    });
+}
 
 function registerEventHandlers() {
   $("body")
@@ -886,7 +899,7 @@ function registerEventHandlers() {
       return false;
     })
     .on("dragstart",function() {
-      return false;
+      return false
     })
     /* #open1 */
     .on("click","#open1",function() {
@@ -952,7 +965,16 @@ function registerEventHandlers() {
     ;
 };
 
-window.onload = function(){
+windowOnload = new Promise(function (resolve, reject) {
+  window.onload = function() {
+    resolve();
+  };
+});
+
+Promise.all([
+  prepareMessages(),
+  windowOnload
+]).then( function() {
     var locale = getMessage('locale', 'en');
     if (locale != 'en') {
         var head  = $('head').q;
@@ -973,4 +995,4 @@ window.onload = function(){
     scaleBody(document.getElementsByTagName("body")[0], 720);
 
     World.playSound('snd_theme');
-};
+});
