@@ -151,3 +151,116 @@ Here are some steps to help people wishing to generate code for use in the Tizen
 1. “From directory” <- the build/sdk directory
 1. “Into folder” <- the project you created in the IDE
 1. Finish
+
+# Example usage on Linux
+
+```
+[webapps-annex]$ !npm
+npm install && bower install && grunt apk && grunt crosswalk
+npm WARN deprecated lodash@1.1.1: lodash@<2.0.0 is no longer maintained. Upgrade to lodash@^3.0.0
+...
+└── jpegtran-bin@0.1.7 (which@1.0.9, colors@0.6.2, mocha@1.9.0, request@2.16.6, tar@0.1.20)
+bower wqy-microhei#*            cached 
+...
+wqy-microhei#e-tag:4a1ae24c- app/lib/wqy-microhei
+Running "clean:0" (clean) task
+
+Running "imagemin:dist" (imagemin) task
+✔ app/images/winner_001_wood.jpg (saved 5.16Kb)
+✔ app/images/result_quit.png (saved 2.86KB)
+✔ app/images/opening_001_bg.jpg (saved 2.19KB)
+✔ app/images/game_015_pcside.png (saved 2.76KB)
+✔ app/images/game_014_board.png (saved 2.81KB)
+✔ app/images/game_013_settingsarrow.png (saved 3.17KB)
+✔ app/images/game_012_settingsexit_img.png (saved 2.73KB)
+✔ app/images/game_012_settingsexit.png (saved 3.30KB)
+✔ app/images/game_011_settings1p_img.png (saved 2.93KB)
+✔ app/images/game_011_settings1p.png (saved 3.73KB)
+✔ app/images/game_010_settings2p_img.png (saved 3.06KB)
+✔ app/images/game_010_settings2p.png (saved 3.78KB)
+✔ app/images/game_009_settingsrules_img.png (saved 2.81KB)
+✔ app/images/game_009_settingsrules.png (saved 3.46KB)
+✔ app/images/game_008_settingsstartover_img.png (saved 2.77KB)
+✔ app/images/game_008_settingsstartover.png (saved 3.41KB)
+✔ app/images/game_007_settingsbtnrollover.png (saved 3.19KB)
+✔ app/images/game_006_settingsbtn.png (saved 3.30KB)
+✔ app/images/game_005_pcrightside.png (saved 3.17KB)
+✔ app/images/game_004_pcleftside.png (saved 3.17KB)
+✔ app/images/game_003_whitepc.png (saved 3.44KB)
+✔ app/images/game_002_blackpc.png (saved 3.17KB)
+✔ app/images/game_001_boardbg.jpg (saved 9.15KB)
+✔ app/images/winner_003_p2win.jpg (saved 1.05KB)
+✔ app/images/winner_002_p1win.jpg (saved 1.00KB)
+✔ app/images/rules_001_bg.jpg (saved 2.54KB)
+✔ app/images/opening_003_rollover.png (saved 5.54KB)
+✔ app/images/rules_002_rollover.png (saved 5.31KB)
+✔ app/images/winner_005_exitrollover.png (saved 4.74KB)
+✔ app/images/winner_004_rollover.png (saved 5.68KB)
+✔ app/images/opening_002_title.png (saved 9.33KB)
+
+Running "uglify:dist" (uglify) task
+File "build/app/js/annex.js" created.
+File "build/app/js/scaleBody.js" created.
+
+Running "cssmin:dist" (cssmin) task
+File build/app/css/annex.css created.
+File build/app/css/i18n.css created.
+
+Running "htmlmin:dist" (htmlmin) task
+File build/app/index.html created.
+
+Running "copy:common" (copy) task
+Created 21 directories, copied 303 files
+
+Running "copy:apk" (copy) task
+Created 25 directories, copied 342 files
+
+Running "copy:apk_manifest" (copy) task
+Copied 1 files
+
+Done, without errors.
+Running "crosswalk:default" (crosswalk) task
+  Packaging /home/davidmaxwaterman/z/webapps/webapps-annex/build/apk
+  Checking host setup
+  + Checking host setup for target android
+  + Checking for android... /opt/android-sdk-linux/tools/android
+  + Checking for ant... /usr/bin/ant
+  + Checking for java... /usr/bin/java
+  + Checking for lzma... /usr/bin/lzma
+  + Checking for ANDROID_HOME... /opt/android-sdk-linux
+  + Testing dummy project in /tmp/ossYcJ
+  + Creating com.example.foo [done] 
+  + Building com.example.foo [done] 
+  Initializing build dir /tmp/SIb5DF
+  + Copying app template from ...node_modules/crosswalk-app-tools/app-template
+  + Loading 'android' platform backend
+  + Building against API level android-21
+  + Creating org.org01.webapps.annex [done] 
+  + Defaulting to download channel stable
+  + Looking for latest version in crosswalk/stable
+  + Fetching 'stable' versions index [##########] 
+  + Found version '16.45.421.19' in channel 'stable'
+  + Using cached ...maxwaterman/z/webapps/crosswalk/crosswalk-16.45.421.19.zip
+  + Extracting .../z/webapps/crosswalk/crosswalk-16.45.421.19.zip [##########] 
+  + Project template created at .../SIb5DF/org.org01.webapps.annex/prj/android
+  Importing web application
+  + Source /home/davidmaxwaterman/z/webapps/webapps-annex/build/apk
+  + Destination /tmp/SIb5DF/org.org01.webapps.annex/app
+  Building packages armeabi-v7a,x86
+  + Loading 'android' platform backend
+  + Adding permissions ACCESS_NETWORK_STATE,ACCESS_WIFI_STATE,INTERNET
+  + Updating java activity for 'debug' configuration
+  + Copying app to /tmp/SIb5DF/org.org01.webapps.annex/prj/android/assets/www
+  + Updating theme.xml for display mode (fullscreen: no)
+  + Using android:versionCode '20000010'
+  + Building armeabi-v7a [done] 
+  + Using android:versionCode '60000010'
+  + Building x86 [done] 
+  Package: org.org01.webapps.annex-0.0.10-debug.armeabi-v7a.apk
+  Package: org.org01.webapps.annex-0.0.10-debug.x86.apk
+  + Deleting build dir /tmp/SIb5DF
+[webapps-annex]$ ls
+app         build         HACKING.md    icon_16.png  LICENSE       org.org01.webapps.annex-0.0.10-debug.armeabi-v7a.apk  package.json  README.md
+bower.json  Gruntfile.js  icon_128.png  icon_48.png  node_modules  org.org01.webapps.annex-0.0.10-debug.x86.apk          platforms     tools
+[webapps-annex]$ 
+```
