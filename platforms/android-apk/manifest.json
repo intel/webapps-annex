@@ -19,7 +19,7 @@
   "start_url": "index.html",
   "xwalk_app_version": "<%= packageInfo.version %>",
   "xwalk_package_id": "org.org01.webapps.<%= packageInfo.name.toLowerCase() %>",
-  "xwalk_target_platforms": "android",
+  "xwalk_target_platforms": [ "android" ],
   "xwalk_android_animatable_view": false,
   "xwalk_android_keep_screen_on": false,
   "xwalk_windows_update_id": "39377815-5790-6419-4898-877555970102",
